@@ -18,70 +18,6 @@ import { GameDataService } from '../game-data/game-data.service';
 export class GameplayService {
   gameDataService = inject(GameDataService);
 
-  private gameData: gameData[] = [
-    {
-      cover:
-        'https://cdn.mobygames.com/06225314-e118-11ed-9572-02420a000157.webp',
-      genres: ['Zombie', 'Action', 'FPS'],
-
-      title: 'Dead Island 2',
-
-      year: 2023,
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/f8f7cc6a-aba1-11ed-8b6f-02420a00019c.webp',
-      genres: ['Sidescroller', 'Action', 'Robots'],
-
-      title: 'Megaman X6',
-
-      year: 2001,
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/covers/4130110-super-street-fighter-ii-genesis-front-cover.jpg',
-      genres: ['2D Fighter'],
-
-      title: 'Super Street Fighter II',
-
-      year: 1993,
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/covers/5326229-fallout-3-windows-front-cover.jpg',
-      genres: ['Post apocalyptic', 'FPS', 'RPG'],
-      title: 'Fallout 3',
-      year: 2008,
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/covers/5477662-the-elder-scrolls-v-skyrim-windows-front-cover.jpg',
-      genres: ['Fantasy', 'RPG'],
-      title: 'The Elder Scrolls V: Skyrim',
-      year: 2011,
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/covers/4298102-super-smash-bros-ultimate-nintendo-switch-front-cover.jpg',
-      title: 'Super Smash Bros. Ultimate',
-      year: 2018,
-      genres: ['Platform', 'Fighter', '2D'],
-    },
-
-    {
-      cover:
-        'https://cdn.mobygames.com/covers/6296552-portal-2-windows-front-cover.jpg',
-      title: 'Portal 2',
-      year: 2011,
-      genres: ['Puzzle', 'FPS'],
-    },
-  ];
-
   private _refreshGame$ = new BehaviorSubject<void>(undefined);
 
 
@@ -112,10 +48,6 @@ export class GameplayService {
 
 
   constructor() {}
-
-  getAllGames() {
-    return from([this.gameData]);
-  }
 
   generateRandomId() {
     return this._listOfIdsWithoutConcluded.pipe(
