@@ -1,0 +1,40 @@
+<div class="dark:bg-black dark:text-white w-full h-full flex flex-col justify-center items-center">
+
+  <ng-container *ngIf="gamePlayService as gmps">
+
+    <p class="text-red-600 mb-20 text-2xl" *ngIf="gmps.lost$ | async">You lost the game!</p>
+    <p class="text-xl mb-10">Current streak: {{gmps.streak$ | async}}</p>
+
+    <ng-container *ngIf="(gmps.randomGame$ | async) as game; else loadingGame">
+      <ng-container *ngIf="(gmps.loadingGame$ | async) === false; else loadingGame">
+
+        <div class="pointer-events-none select-none" [ngClass]="(gmps.lost$ | async) === true ? '' : 'blur-lg'">
+          <img class="w-[500px] h-[500px] object-contain select-none" [src]="getGameImage(game.cover, '720p')">
+        </div>
+
+        <div class="mt-10">
+          <input type="text" list="allGamesList" class="text-black w-[500px]" [(ngModel)]="guessedGame" (ngModelChange)="guessedGameBehavior$.next($event)">
+
+          <datalist id="allGamesList">
+            <option *ngFor="let game of listOfPossibleGames$ | async">{{game.name}}</option>
+          </datalist>
+        </div>
+
+        <p class="mt-10 text-lg" *ngIf="gmps.lost$ | async">The correct answer was: {{game.name}}</p>
+
+        <button *ngIf="(gmps.lost$ | async) === false" (click)="handleGuess()"
+          class="border-white border-2 px-6 py-2 mt-4">GUESS</button>
+        <button *ngIf="(gmps.lost$ | async) === true" (click)="reset()"
+          class="border-red-600 border-2 px-6 py-2 mt-4 text-red-600">RETRY</button>
+
+      </ng-container>
+    </ng-container>
+
+    <ng-template #loadingGame>
+      <ngx-skeleton-loader appearance="line" animation="pulse" [theme]="{height: '500px', width: '500px',}">
+      </ngx-skeleton-loader>
+    </ng-template>
+
+  </ng-container>
+
+</div>
